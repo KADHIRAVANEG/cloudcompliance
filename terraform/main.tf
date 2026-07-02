@@ -61,3 +61,8 @@ module "monitoring" {
   project_name  = "cloudcompliance"
   sns_topic_arn = module.iam.root_alert_topic_arn
 }
+module "config" {
+  source          = "./modules/config"
+  project_name    = "cloudcompliance"
+  audit_bucket_id = module.logging.audit_bucket_id
+}
