@@ -7,28 +7,33 @@ terraform {
   }
 }
 
-provider "aws" {
-  region                      = "us-east-1"
-  access_key                  = "test"
-  secret_key                  = "test"
-  skip_credentials_validation = true
-  skip_metadata_api_check     = true
-  skip_requesting_account_id  = true
-  s3_use_path_style           = true
-
-  endpoints {
-    s3         = "http://localhost:4566"
-    cloudtrail = "http://localhost:4566"
-    kms        = "http://localhost:4566"
-    iam        = "http://localhost:4566"
-    ec2        = "http://localhost:4566"
-    guardduty  = "http://localhost:4566"
-    config     = "http://localhost:4566"
-    sns        = "http://localhost:4566"
-    cloudwatch = "http://localhost:4566"
-  }
+locals {
+  is_local = var.localstack_endpoint != ""
 }
 
+provider "aws" {
+  region                      = var.aws_region
+  access_key                  = local.is_local ? "test" : null
+  secret_key                  = local.is_local ? "test" : null
+  skip_credentials_validation = local.is_local
+  skip_metadata_api_check     = local.is_local
+  skip_requesting_account_id  = local.is_local
+  s3_use_path_style           = local.is_local
+
+  dynamic "endpoints" {
+    for_each = local.is_local ? [1] : []
+    content {
+      s3         = var.localstack_endpoint
+      cloudtrail = var.localstack_endpoint
+      kms        = var.localstack_endpoint
+      iam        = var.localstack_endpoint
+      ec2        = var.localstack_endpoint
+      config     = var.localstack_endpoint
+      sns        = var.localstack_endpoint
+      cloudwatch = var.localstack_endpoint
+    }
+  }
+}
 resource "aws_s3_bucket" "compliance_test" {
   bucket = "cloudcompliance-test"
 
