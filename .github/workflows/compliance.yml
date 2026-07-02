@@ -82,7 +82,7 @@ jobs:
         run: |
           cd terraform
           terraform init
-          terraform apply -var-file=local.tfvars -auto-approve
+          terraform apply -var-file="$(pwd)/local.tfvars" -auto-approve
 
       - name: Run Compliance Report
         run: python compliance/report.py
