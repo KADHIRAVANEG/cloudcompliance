@@ -1,0 +1,97 @@
+name: SOC2 Compliance Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Terraform Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.15.6
+
+      - name: Terraform Format Check
+        run: |
+          cd terraform
+          terraform fmt -check -recursive
+        continue-on-error: false
+
+      - name: Terraform Init
+        run: |
+          cd terraform
+          terraform init -backend=false
+
+      - name: Terraform Validate
+        run: |
+          cd terraform
+          terraform validate
+
+  compliance-check:
+    name: SOC2 Compliance Check
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install rich
+
+      - name: Setup LocalStack
+        uses: LocalStack/setup-localstack@v0.2.3
+        with:
+          image-tag: '3.4.0'
+          install-awslocal: 'true'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.15.6
+
+      - name: Deploy to LocalStack
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -var-file=local.tfvars -auto-approve
+
+      - name: Run Compliance Report
+        run: python compliance/report.py
+
+      - name: Check Compliance Score
+        run: |
+          python - <<'EOF'
+          import json, sys
+          with open('compliance/compliance_report.json') as f:
+              report = json.load(f)
+          score = report['compliance_score']
+          print(f"SOC2 Compliance Score: {score}%")
+          if score < 100:
+              failing = [
+                  cid for cid, ctrl in report['controls'].items()
+                  if ctrl['status'] != 'PASS'
+              ]
+              print(f"Failing controls: {', '.join(failing)}")
+              sys.exit(1)
+          print("All SOC2 controls passing. Merge approved.")
+          EOF
+
+      - name: Upload compliance report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compliance-report
+          path: compliance/compliance_report.json
