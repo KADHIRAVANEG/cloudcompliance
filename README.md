@@ -55,6 +55,41 @@ cloudcompliance/
 │   └── report.py          # SOC2 evidence generator
 └── Makefile               # make deploy / report / destroy
 ```
+## Chart
+
+```mermaid
+flowchart LR
+    %% Styling Definitions
+    classDef root fill:#2c3e50,stroke:#34495e,stroke-width:2px,color:#fff;
+    classDef infra fill:#34495e,stroke:#2c3e50,stroke-width:1px,color:#ecf0f1;
+    classDef mod fill:#7f8c8d,stroke:#95a5a6,stroke-width:1px,color:#fff;
+    classDef script fill:#f1c40f,stroke:#f39c12,stroke-width:2px,color:#000;
+    classDef tool fill:#27ae60,stroke:#2ecc71,stroke-width:2px,color:#fff;
+
+    Root[cloudcompliance]:::root
+    
+    %% Terraform Infrastructure Layer
+    Root --> TF[terraform/]:::infra
+    TF --> Main[main.tf]:::infra
+    TF --> Mods[modules/]:::mod
+    
+    Mods --> Net[networking<br/>CC6.1]:::mod
+    Mods --> Log[logging<br/>CC7.2]:::mod
+    Mods --> Enc[encryption<br/>CC6.7]:::mod
+    Mods --> IAM[iam<br/>CC6.2]:::mod
+    Mods --> Mon[monitoring<br/>CC7.1]:::mod
+
+    %% Compliance Layer
+    Root --> Comp[compliance/]:::tool
+    Comp --> Rep[report.py<br/>SOC2 Generator]:::tool
+
+    %% Automation
+    Root --> Mk[Makefile]:::script
+
+    %% Connections
+    Mk -.->|deploy| TF
+    Mk -.->|report| Comp
+```
 
 ## Compliance Report Output
 
