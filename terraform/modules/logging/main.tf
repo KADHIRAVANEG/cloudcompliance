@@ -43,7 +43,7 @@ resource "aws_s3_bucket_policy" "audit_logs_deny_delete" {
         Effect    = "Deny"
         Principal = "*"
         Action    = ["s3:DeleteObject", "s3:DeleteBucket"]
-        Resource  = [
+        Resource = [
           "arn:aws:s3:::${var.project_name}-audit-logs",
           "arn:aws:s3:::${var.project_name}-audit-logs/*"
         ]
@@ -53,7 +53,7 @@ resource "aws_s3_bucket_policy" "audit_logs_deny_delete" {
         Effect    = "Deny"
         Principal = "*"
         Action    = "s3:*"
-        Resource  = [
+        Resource = [
           "arn:aws:s3:::${var.project_name}-audit-logs",
           "arn:aws:s3:::${var.project_name}-audit-logs/*"
         ]

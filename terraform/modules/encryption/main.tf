@@ -61,7 +61,7 @@ resource "aws_s3_bucket_policy" "https_only" {
         Effect    = "Deny"
         Principal = "*"
         Action    = "s3:*"
-        Resource  = [
+        Resource = [
           "arn:aws:s3:::${var.project_name}-encrypted-data",
           "arn:aws:s3:::${var.project_name}-encrypted-data/*"
         ]

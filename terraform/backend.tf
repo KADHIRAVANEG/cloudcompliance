@@ -1,4 +1,6 @@
-# Uncomment for real AWS deployment
+# Remote backend for real AWS deployment
+# Uncomment and configure before running in production:
+#
 # terraform {
 #   backend "s3" {
 #     bucket         = "your-tfstate-bucket"
@@ -8,10 +10,3 @@
 #     encrypt        = true
 #   }
 # }
-
-# Local backend for LocalStack development (default)
-terraform {
-  backend "local" {
-    path = "terraform.tfstate"
-  }
-}
