@@ -1,15 +1,15 @@
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "cloudcompliance"
 version = "1.0.0"
 description = "SOC2 compliance evidence generator for Terraform AWS infrastructure"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
-  {name = "Kadhiravan E.G.", email = "your@email.com"}
+  {name = "Kadhiravan E.G.", email = "kadhiravaneg@gmail.com"}
 ]
 keywords = ["soc2", "compliance", "terraform", "aws", "security", "iac"]
 classifiers = [
@@ -17,7 +17,6 @@ classifiers = [
   "Intended Audience :: Developers",
   "Topic :: Security",
   "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
 ]
 requires-python = ">=3.9"
 dependencies = [
@@ -30,3 +29,6 @@ cloudcompliance = "cloudcompliance.report:main"
 [project.urls]
 Homepage = "https://github.com/KADHIRAVANEG/terraform-aws-cloudcompliance"
 Repository = "https://github.com/KADHIRAVANEG/terraform-aws-cloudcompliance"
+
+[tool.setuptools.packages.find]
+include = ["cloudcompliance*"]
