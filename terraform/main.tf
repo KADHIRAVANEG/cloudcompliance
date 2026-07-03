@@ -23,14 +23,16 @@ provider "aws" {
   dynamic "endpoints" {
     for_each = local.is_local ? [1] : []
     content {
-      s3         = var.localstack_endpoint
-      cloudtrail = var.localstack_endpoint
-      kms        = var.localstack_endpoint
-      iam        = var.localstack_endpoint
-      ec2        = var.localstack_endpoint
-      config     = var.localstack_endpoint
-      sns        = var.localstack_endpoint
-      cloudwatch = var.localstack_endpoint
+      s3             = var.localstack_endpoint
+      cloudtrail     = var.localstack_endpoint
+      kms            = var.localstack_endpoint
+      iam            = var.localstack_endpoint
+      ec2            = var.localstack_endpoint
+      config         = var.localstack_endpoint
+      sns            = var.localstack_endpoint
+      cloudwatch     = var.localstack_endpoint
+      cloudwatchlogs = var.localstack_endpoint
+     
     }
   }
 }
