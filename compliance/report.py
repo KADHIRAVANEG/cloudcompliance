@@ -40,7 +40,7 @@ SOC2_CONTROLS = {
     "CC7.2": {
         "title": "Audit Logging — Tamper-evident Records",
         "description": "Log all activity with integrity validation and retention",
-        "resources": ["aws_s3_bucket_versioning", "aws_s3_bucket_public_access_block", "aws_config_delivery_channel"],
+        "resources": ["aws_s3_bucket_versioning", "aws_s3_bucket_public_access_block", "aws_config_delivery_channel", "aws_flow_log", "aws_cloudwatch_log_group"],
     },
     "CC6.6": {
         "title": "Logical Access — Transmission Protection",
