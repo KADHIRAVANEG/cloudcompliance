@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+cloudcompliance/__init__.py
+cloudcompliance/report.py
+cloudcompliance.egg-info/PKG-INFO
+cloudcompliance.egg-info/SOURCES.txt
+cloudcompliance.egg-info/dependency_links.txt
+cloudcompliance.egg-info/entry_points.txt
+cloudcompliance.egg-info/requires.txt
+cloudcompliance.egg-info/top_level.txt
