@@ -6,7 +6,7 @@
 
 # CloudCompliance — SOC2-Ready AWS IaC
 
-> Infrastructure as Code that provisions a SOC2 Type II-aligned AWS environment
+> Infrastructure as Code that provisions a SOC2-aligned AWS security baseline
 > in one command. Zero manual security configuration required.
 
 ## The Problem
