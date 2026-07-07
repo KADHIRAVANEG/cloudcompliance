@@ -5,3 +5,4 @@ terraform.tfstate.backup
 compliance/compliance_report.json
 *.tfvars
 .env
+terraform/local-dev.tfvars
