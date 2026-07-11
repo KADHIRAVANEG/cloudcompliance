@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--surface-0);color:var(--text-primary);max-width:900px;margin:0 auto;padding:2rem 1rem}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;margin-bottom:3rem}
+.logo{font-size:16px;font-weight:500;display:flex;align-items:center;gap:8px}
+.logo-icon{width:28px;height:28px;background:#1D9E75;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-size:13px;color:var(--text-secondary);text-decoration:none;cursor:pointer}
+.nav-links a:hover{color:var(--text-primary)}
+.btn{padding:6px 14px;border-radius:var(--radius);font-size:13px;cursor:pointer;border:0.5px solid var(--border-strong);background:transparent;color:var(--text-primary)}
+.btn-primary{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.hero{text-align:center;padding:3rem 0 2rem}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--bg-success);color:var(--text-success);border-radius:20px;font-size:12px;margin-bottom:1.5rem}
+.hero h1{font-size:36px;font-weight:500;line-height:1.2;margin-bottom:1rem}
+.hero h1 span{color:#1D9E75}
+.hero p{font-size:16px;color:var(--text-secondary);max-width:560px;margin:0 auto 2rem;line-height:1.7}
+.install-box{background:var(--surface-1);border:0.5px solid var(--border);border-radius:var(--radius);padding:12px 16px;display:inline-flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:13px;margin-bottom:1rem}
+.install-box span{color:var(--text-muted)}
+.cta-group{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.badges-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:1.5rem}
+.pill{padding:3px 10px;border-radius:20px;font-size:11px;background:var(--surface-1);border:0.5px solid var(--border);color:var(--text-secondary)}
+.section{margin:3rem 0}
+.section-label{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem}
+.section-title{font-size:22px;font-weight:500;margin-bottom:0.5rem}
+.section-sub{font-size:14px;color:var(--text-secondary);margin-bottom:2rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:2rem}
+.stat{background:var(--surface-1);border-radius:var(--radius);padding:1rem;text-align:center}
+.stat-num{font-size:28px;font-weight:500;color:#1D9E75}
+.stat-label{font-size:12px;color:var(--text-secondary);margin-top:2px}
+.terminal{background:#1a1a1a;border-radius:12px;padding:1.5rem;font-family:var(--font-mono);font-size:13px;line-height:1.8;margin-bottom:2rem}
+.terminal .prompt{color:#888}
+.terminal .cmd{color:#e2e8f0}
+.terminal .out{color:#4ade80}
+.terminal .dim{color:#666}
+.terminal .cyan{color:#22d3ee}
+.terminal .yellow{color:#fbbf24}
+.controls-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.control-card{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.control-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.control-id{font-size:11px;font-weight:500;color:#1D9E75;font-family:var(--font-mono)}
+.control-pass{font-size:11px;color:var(--text-success);background:var(--bg-success);padding:2px 8px;border-radius:10px}
+.control-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.control-resources{font-size:11px;color:var(--text-muted)}
+.install-section{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.install-card{background:var(--surface-1);border:0.5px solid var(--border);border-radius:12px;padding:1rem}
+.install-card-icon{font-size:20px;margin-bottom:8px}
+.install-card-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.install-card code{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);display:block;margin-top:6px;padding:6px 8px;background:var(--surface-0);border-radius:var(--radius)}
+.footer{text-align:center;padding:2rem 0;border-top:0.5px solid var(--border);margin-top:3rem;color:var(--text-muted);font-size:13px}
+</style>
+</head>
+<body>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden">CloudCompliance project website mockup</h2>
+
+<nav class="nav">
+  <div class="logo">
+    <div class="logo-icon">CC</div>
+    CloudCompliance
+  </div>
+  <div class="nav-links">
+    <a onclick="sendPrompt('Show me the controls section of the CloudCompliance website')">Controls</a>
+    <a onclick="sendPrompt('Show me the install section of the CloudCompliance website')">Install</a>
+    <a>Docs</a>
+    <a>GitHub</a>
+  </div>
+  <button class="btn btn-primary" onclick="sendPrompt('How do I get started with CloudCompliance?')">Get started</button>
+</nav>
+
+<section class="hero">
+  <div class="badge">
+    <i class="ti ti-shield-check" aria-hidden="true"></i>
+    SOC2-aligned AWS security baseline
+  </div>
+  <h1>Provision a <span>compliant AWS</span><br>environment in one command</h1>
+  <p>Infrastructure as Code that deploys 46 AWS resources across 10 SOC2 controls. No manual security configuration required.</p>
+  <div class="install-box">
+    <span>$</span> pip install cloudcompliance
+    <i class="ti ti-copy" style="color:var(--text-muted);cursor:pointer" aria-hidden="true"></i>
+  </div>
+  <div class="cta-group">
+    <button class="btn btn-primary" onclick="sendPrompt('How do I deploy CloudCompliance on LocalStack?')">Deploy now ↗</button>
+    <button class="btn" onclick="sendPrompt('Show me the CloudCompliance GitHub repository')">View on GitHub</button>
+    <button class="btn" onclick="sendPrompt('How do I use CloudCompliance as a Terraform module?')">Terraform Registry</button>
+  </div>
+  <div class="badges-row">
+    <span class="pill">SOC2 Compliance Gate · passing</span>
+    <span class="pill">Terraform 1.15.6</span>
+    <span class="pill">LocalStack 3.4.0</span>
+    <span class="pill">Python 3.11</span>
+    <span class="pill">MIT License</span>
+  </div>
+</section>
+
+<section class="section">
+  <div class="stats">
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">SOC2 controls</div></div>
+    <div class="stat"><div class="stat-num">46</div><div class="stat-label">AWS resources</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Compliance score</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Command to deploy</div></div>
+  </div>
+
+  <div class="terminal">
+    <div><span class="prompt">$ </span><span class="cmd">make deploy</span></div>
+    <div class="dim">Initializing modules...</div>
+    <div class="out">Apply complete! Resources: 46 added, 0 changed, 0 destroyed.</div>
+    <div style="margin-top:8px"><span class="prompt">$ </span><span class="cmd">make report</span></div>
+    <div class="dim">Reading state from terraform.tfstate...</div>
+    <div style="margin-top:4px"><span class="cyan">CC6.1</span> Network Isolation      <span class="out">✅ PASS</span></div>
+    <div><span class="cyan">CC6.2</span> Authentication Controls <span class="out">✅ PASS</span></div>
+    <div><span class="cyan">CC6.7</span> Encryption              <span class="out">✅ PASS</span></div>
+    <div><span class="cyan">CC7.1</span> Threat Detection        <span class="out">✅ PASS</span></div>
+    <div><span class="cyan">CC7.2</span> Audit Logging           <span class="out">✅ PASS</span></div>
+    <div><span class="cyan">CC7.3</span> Incident Response       <span class="out">✅ PASS</span></div>
+    <div><span class="cyan">A1.1 </span> Availability            <span class="out">✅ PASS</span></div>
+    <div style="margin-top:8px"><span class="yellow">SOC2 Compliance Score: 100% (10/10 controls passing)</span></div>
+    <div class="dim">Evidence saved → compliance/compliance_report.json</div>
+    <div class="dim">Markdown report → compliance/compliance_report.md</div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="section-label">SOC2 controls</p>
+  <h2 class="section-title">10 controls, fully enforced</h2>
+  <p class="section-sub">Every control maps to real Terraform resources — not just documentation.</p>
+  <div class="controls-grid">
+    <div class="control-card" onclick="sendPrompt('Explain SOC2 control CC6.1 Network Isolation and how CloudCompliance implements it')">
+      <div class="control-header"><span class="control-id">CC6.1</span><span class="control-pass">✅ PASS</span></div>
+      <div class="control-title">Network isolation</div>
+      <div class="control-resources">aws_vpc · aws_subnet · aws_default_security_group</div>
+    </div>
+    <div class="control-card" onclick="sendPrompt('Explain SOC2 control CC6.2 Authentication Controls and how CloudCompliance implements it')">
+      <div class="control-header"><span class="control-id">CC6.2</span><span class="control-pass">✅ PASS</span></div>
+      <div class="control-title">Authentication controls</div>
+      <div class="control-resources">aws_iam_account_password_policy · aws_iam_role · aws_sns_topic</div>
+    </div>
+    <div class="control-card" onclick="sendPrompt('Explain SOC2 control CC6.7 Encryption and how CloudCompliance implements it')">
+      <div class="control-header"><span class="control-id">CC6.7</span><span class="control-pass">✅ PASS</span></div>
+      <div class="control-title">Encryption at rest and in transit</div>
+      <div class="control-resources">aws_kms_key · aws_kms_alias · aws_s3_bucket_server_side_encryption_configuration</div>
+    </div>
+    <div class="control-card" onclick="sendPrompt('Explain SOC2 control CC7.1 Threat Detection and how CloudCompliance implements it')">
+      <div class="control-header"><span class="control-id">CC7.1</span><span class="control-pass">✅ PASS</span></div>
+      <div class="control-title">Threat detection</div>
+      <div class="control-resources">aws_cloudwatch_metric_alarm · aws_config_configuration_recorder</div>
+    </div>
+    <div class="control-card" onclick="sendPrompt('Explain SOC2 control CC7.2 Audit Logging and how CloudCompliance implements it')">
+      <div class="control-header"><span class="control-id">CC7.2</span><span class="control-pass">✅ PASS</span></div>
+      <div class="control-title">Audit logging</div>
+      <div class="control-resources">aws_s3_bucket_versioning · aws_flow_log · aws_config_delivery_channel</div>
+    </div>
+    <div class="control-card" onclick="sendPrompt('Explain SOC2 control CC7.3 Incident Response and how CloudCompliance implements it')">
+      <div class="control-header"><span class="control-id">CC7.3</span><span class="control-pass">✅ PASS</span></div>
+      <div class="control-title">Incident response</div>
+      <div class="control-resources">aws_cloudwatch_log_metric_filter · aws_cloudwatch_log_group</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="section-label">Install</p>
+  <h2 class="section-title">Three ways to use it</h2>
+  <p class="section-sub">Pick the option that fits your workflow.</p>
+  <div class="install-section">
+    <div class="install-card" onclick="sendPrompt('How do I use CloudCompliance as a Terraform module?')">
+      <div class="install-card-icon"><i class="ti ti-topology-star" aria-hidden="true"></i></div>
+      <div class="install-card-title">Terraform module</div>
+      <div style="font-size:12px;color:var(--text-secondary)">Use in your existing Terraform project</div>
+      <code>source = "KADHIRAVANEG/cloudcompliance/aws"</code>
+    </div>
+    <div class="install-card" onclick="sendPrompt('How do I install and use the cloudcompliance Python CLI?')">
+      <div class="install-card-icon"><i class="ti ti-brand-python" aria-hidden="true"></i></div>
+      <div class="install-card-title">Python CLI</div>
+      <div style="font-size:12px;color:var(--text-secondary)">Run compliance reports from terminal</div>
+      <code>pip install cloudcompliance</code>
+    </div>
+    <div class="install-card" onclick="sendPrompt('How do I run CloudCompliance using Docker?')">
+      <div class="install-card-icon"><i class="ti ti-brand-docker" aria-hidden="true"></i></div>
+      <div class="install-card-title">Docker</div>
+      <div style="font-size:12px;color:var(--text-secondary)">No Python setup required</div>
+      <code>docker pull ghcr.io/kadhiravaneg/terraform-aws-cloudcompliance</code>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  Built by Kadhiravan E.G. · MIT License · <a href="#" style="color:var(--text-accent)">GitHub</a> · <a href="#" style="color:var(--text-accent)">PyPI</a> · <a href="#" style="color:var(--text-accent)">Terraform Registry</a>
+</footer>
+
+</body>
+</html>
