@@ -8,8 +8,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --green:#1D9E75;
-  --green-light:#E1F5EE;
-  --green-dark:#0F6E56;
   --bg:#0f1117;
   --surface:#1a1d27;
   --surface2:#222536;
@@ -28,7 +26,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2
 .nav-links{display:flex;gap:2rem}
 .nav-links a{color:var(--muted);font-size:14px}
 .nav-links a:hover{color:var(--text);text-decoration:none}
-.btn{padding:8px 18px;border-radius:8px;font-size:14px;cursor:pointer;border:none;font-weight:500}
+.btn{padding:8px 18px;border-radius:8px;font-size:14px;cursor:pointer;border:none;font-weight:500;display:inline-block}
 .btn-primary{background:var(--green);color:#fff}
 .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
 
@@ -59,10 +57,10 @@ h2{font-size:32px;font-weight:600;margin-bottom:8px}
 .dot-green{background:#28c840}
 .terminal-title{font-size:12px;color:var(--muted);margin-left:8px}
 .terminal-body{padding:1.5rem;font-family:var(--mono);font-size:13px;line-height:2}
-.p{color:#636d83}.c{color:var(--text)}.g{color:#4ade80}.teal{color:#22d3ee}.y{color:#fbbf24}.dim{color:#4a5568}
+.p{color:#636d83}.c{color:var(--text)}.g{color:#4ade80}.teal{color:#22d3ee}.y{color:#fbbf24}.dim{color:#4a5568}.red{color:#f87171}
 
 .controls-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.control-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;cursor:pointer;transition:border-color 0.2s}
+.control-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:border-color 0.2s}
 .control-card:hover{border-color:var(--green)}
 .control-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .control-id{font-family:var(--mono);font-size:12px;color:var(--green);font-weight:600}
@@ -77,21 +75,34 @@ h2{font-size:32px;font-weight:600;margin-bottom:8px}
 .install-sub{font-size:13px;color:var(--muted);margin-bottom:12px}
 .install-code{background:#0d0f14;border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:var(--mono);font-size:12px;color:var(--green)}
 
-.drift-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-top:2rem}
-.drift-header{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
-.drift-badge{background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);padding:4px 12px;border-radius:20px;font-size:12px}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:1.5rem}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.feature-icon{font-size:20px;margin-bottom:8px}
+.feature-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.feature-desc{font-size:13px;color:var(--muted)}
+.feature-tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;margin-top:6px}
+.tag-new{background:rgba(29,158,117,0.15);color:var(--green)}
+.tag-v12{background:rgba(251,191,36,0.15);color:#fbbf24}
+.tag-v13{background:rgba(125,211,252,0.15);color:#7dd3fc}
+
 .drift-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:1rem}
 .drift-step{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px}
 .drift-arrow{color:var(--muted)}
+
+.history-bar{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.history-date{font-family:var(--mono);font-size:12px;color:var(--muted);width:130px}
+.history-score{font-family:var(--mono);font-size:12px;font-weight:700;width:45px}
+.history-track{flex:1;background:var(--border);border-radius:4px;height:8px;overflow:hidden}
+.history-fill{background:var(--green);height:100%;border-radius:4px;transition:width 0.5s}
+.history-trend{font-size:12px;width:40px;text-align:right}
 
 footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:13px}
 footer a{color:var(--green)}
 
 @media(max-width:600px){
-  h1{font-size:32px}
+  h1{font-size:28px}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .controls-grid{grid-template-columns:1fr}
-  .install-grid{grid-template-columns:1fr}
+  .controls-grid,.install-grid,.feature-grid{grid-template-columns:1fr}
   .nav-links{display:none}
 }
 </style>
@@ -104,8 +115,9 @@ footer a{color:var(--green)}
     CloudCompliance
   </div>
   <div class="nav-links">
+    <a href="#features">Features</a>
     <a href="#controls">Controls</a>
-    <a href="#drift">Drift Detection</a>
+    <a href="#history">History</a>
     <a href="#install">Install</a>
     <a href="https://github.com/KADHIRAVANEG/cloudcompliance">GitHub</a>
   </div>
@@ -113,19 +125,19 @@ footer a{color:var(--green)}
 </nav>
 
 <section class="hero">
-  <div class="badge">⚡ v1.2.0 — Now with drift detection</div>
+  <div class="badge">⚡ v1.3.0 — Compliance score history for SOC2 Type II</div>
   <h1>Provision a <span>compliant AWS</span><br>environment in one command</h1>
-  <p class="hero-sub">Infrastructure as Code that deploys 46 AWS resources across 10 SOC2 controls — with automatic drift detection.</p>
+  <p class="hero-sub">Infrastructure as Code that deploys 46 AWS resources across 10 SOC2 controls — with drift detection and score history.</p>
   <div class="cta-group">
     <a href="https://github.com/KADHIRAVANEG/cloudcompliance" class="btn btn-primary">View on GitHub</a>
     <a href="https://registry.terraform.io/modules/KADHIRAVANEG/cloudcompliance/aws" class="btn btn-outline">Terraform Registry</a>
     <a href="https://pypi.org/project/cloudcompliance/" class="btn btn-outline">PyPI</a>
   </div>
   <div class="badges-row">
-    <img src="https://img.shields.io/badge/SOC2%20Compliance%20Gate-passing-brightgreen" alt="CI">
-    <img src="https://img.shields.io/pypi/v/cloudcompliance?color=blue" alt="PyPI">
+    <img src="https://img.shields.io/badge/SOC2%20Compliance%20Gate-passing-brightgreen" alt="CI passing">
+    <img src="https://img.shields.io/pypi/v/cloudcompliance?color=blue" alt="PyPI version">
     <img src="https://img.shields.io/badge/Terraform-1.15.6-7B42BC" alt="Terraform">
-    <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+    <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License">
   </div>
 </section>
 
@@ -142,7 +154,7 @@ footer a{color:var(--green)}
       <div class="dot dot-red"></div>
       <div class="dot dot-yellow"></div>
       <div class="dot dot-green"></div>
-      <span class="terminal-title">terminal</span>
+      <span class="terminal-title">cloudcompliance — terminal</span>
     </div>
     <div class="terminal-body">
       <div><span class="p">$ </span><span class="c">make deploy</span></div>
@@ -150,16 +162,101 @@ footer a{color:var(--green)}
       <br>
       <div><span class="p">$ </span><span class="c">cloudcompliance report</span></div>
       <div><span class="teal">CC6.1</span> Network Isolation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="g">✅ PASS</span></div>
-      <div><span class="teal">CC6.2</span> Authentication Controls <span class="g">✅ PASS</span></div>
       <div><span class="teal">CC6.7</span> Encryption &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="g">✅ PASS</span></div>
       <div><span class="teal">CC7.1</span> Threat Detection &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="g">✅ PASS</span></div>
-      <div><span class="teal">CC7.2</span> Audit Logging &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="g">✅ PASS</span></div>
       <div><span class="teal">CC7.3</span> Incident Response &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="g">✅ PASS</span></div>
-      <div><span class="teal">A1.1 </span> Availability &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="g">✅ PASS</span></div>
-      <div class="y" style="margin-top:8px">SOC2 Compliance Score: 100% (10/10 controls passing)</div>
+      <div class="y" style="margin-top:4px">SOC2 Compliance Score: 100% (10/10 controls passing)</div>
+      <div class="dim">Score saved to history: 100% (10/10 controls)</div>
       <br>
       <div><span class="p">$ </span><span class="c">cloudcompliance drift</span></div>
       <div class="g">✅ No drift detected — infrastructure matches Terraform state</div>
+      <br>
+      <div><span class="p">$ </span><span class="c">cloudcompliance history</span></div>
+      <div class="dim">2026-07-01 &nbsp; 70% &nbsp; 7/10 &nbsp; —</div>
+      <div class="dim">2026-07-07 &nbsp; 90% &nbsp; 9/10 &nbsp; ↑ +20%</div>
+      <div class="g">2026-07-12 &nbsp; 100% &nbsp; 10/10 &nbsp; ↑ +10%</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <p class="section-tag">Features</p>
+  <h2>Everything in one CLI</h2>
+  <p class="section-sub">Three commands cover the full SOC2 compliance lifecycle.</p>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <div class="feature-title">cloudcompliance report</div>
+      <div class="feature-desc">Reads terraform.tfstate, maps resources to SOC2 controls, generates JSON + Markdown evidence report.</div>
+      <span class="feature-tag tag-new">v1.0.0</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <div class="feature-title">cloudcompliance drift</div>
+      <div class="feature-desc">Compares live AWS state against Terraform state. Detects deleted or unmanaged resources. Fires SNS alert automatically.</div>
+      <span class="feature-tag tag-v12">v1.2.0</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📈</div>
+      <div class="feature-title">cloudcompliance history</div>
+      <div class="feature-desc">Every report run is saved to SQLite with timestamp. View score trend over time — exactly what SOC2 Type II auditors need.</div>
+      <span class="feature-tag tag-v13">v1.3.0 NEW</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📤</div>
+      <div class="feature-title">cloudcompliance history --export</div>
+      <div class="feature-desc">Exports full compliance timeline as JSON. Auditor-ready evidence file showing your security posture over time.</div>
+      <span class="feature-tag tag-v13">v1.3.0 NEW</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="history">
+  <p class="section-tag">New in v1.3.0</p>
+  <h2>SOC2 Type II evidence timeline</h2>
+  <p class="section-sub">SOC2 Type II requires compliance evidence over time — not just a snapshot. Every report run is automatically saved.</p>
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="dot dot-red"></div>
+      <div class="dot dot-yellow"></div>
+      <div class="dot dot-green"></div>
+      <span class="terminal-title">cloudcompliance history</span>
+    </div>
+    <div class="terminal-body">
+      <div class="dim">SOC2 Type II evidence timeline — last 5 entries</div>
+      <br>
+      <div class="history-bar">
+        <span class="history-date">2026-06-01 09:00</span>
+        <span class="history-score" style="color:#f87171">60%</span>
+        <div class="history-track"><div class="history-fill" style="width:60%;background:#f87171"></div></div>
+        <span class="history-trend dim">—</span>
+      </div>
+      <div class="history-bar">
+        <span class="history-date">2026-06-15 14:30</span>
+        <span class="history-score" style="color:#fbbf24">70%</span>
+        <div class="history-track"><div class="history-fill" style="width:70%;background:#fbbf24"></div></div>
+        <span class="history-trend" style="color:#4ade80">↑ +10%</span>
+      </div>
+      <div class="history-bar">
+        <span class="history-date">2026-07-01 11:00</span>
+        <span class="history-score" style="color:#fbbf24">80%</span>
+        <div class="history-track"><div class="history-fill" style="width:80%;background:#fbbf24"></div></div>
+        <span class="history-trend" style="color:#4ade80">↑ +10%</span>
+      </div>
+      <div class="history-bar">
+        <span class="history-date">2026-07-07 09:15</span>
+        <span class="history-score" style="color:#4ade80">90%</span>
+        <div class="history-track"><div class="history-fill" style="width:90%"></div></div>
+        <span class="history-trend" style="color:#4ade80">↑ +10%</span>
+      </div>
+      <div class="history-bar">
+        <span class="history-date">2026-07-12 12:16</span>
+        <span class="history-score" style="color:#4ade80">100%</span>
+        <div class="history-track"><div class="history-fill" style="width:100%"></div></div>
+        <span class="history-trend" style="color:#4ade80">↑ +10%</span>
+      </div>
+      <br>
+      <div class="y">Latest: 100% &nbsp; Best: 100% &nbsp; Average: 80.0% &nbsp; Entries: 5</div>
     </div>
   </div>
 </section>
@@ -187,7 +284,7 @@ footer a{color:var(--green)}
     <div class="control-card">
       <div class="control-header"><span class="control-id">CC6.6</span><span class="control-pass">✅ PASS</span></div>
       <div class="control-title">Transmission protection</div>
-      <div class="control-res">aws_s3_bucket_policy (HTTPS-only)</div>
+      <div class="control-res">aws_s3_bucket_policy (HTTPS-only enforcement)</div>
     </div>
     <div class="control-card">
       <div class="control-header"><span class="control-id">CC6.7</span><span class="control-pass">✅ PASS</span></div>
@@ -222,39 +319,6 @@ footer a{color:var(--green)}
   </div>
 </section>
 
-<section class="section" id="drift">
-  <p class="section-tag">New in v1.2.0</p>
-  <h2>Infrastructure drift detection</h2>
-  <p class="section-sub">Catches when someone changes AWS resources outside of Terraform — before it causes a compliance failure.</p>
-  <div class="drift-section">
-    <div class="drift-header">
-      <span class="drift-badge">⚠️ Drift detected</span>
-      <span style="font-size:13px;color:var(--muted)">Example: S3 bucket deleted manually</span>
-    </div>
-    <div class="terminal-body" style="background:#0d0f14;border-radius:8px;padding:1rem;font-family:var(--mono);font-size:13px;line-height:2">
-      <div><span class="p">$ </span><span class="c">cloudcompliance drift</span></div>
-      <div class="dim">Checking S3 buckets...</div>
-      <div class="dim">Checking IAM roles...</div>
-      <div class="dim">Checking VPCs...</div>
-      <div class="dim">Alert sent to SNS topic</div>
-      <div style="color:#fbbf24;margin-top:4px">🟡 HIGH &nbsp; cloudcompliance-encrypted-data &nbsp; DELETED</div>
-      <div class="dim">Remediation: run 'terraform apply' to recreate</div>
-      <div style="color:#f87171;margin-top:4px">1 drift finding(s) detected</div>
-    </div>
-    <div class="drift-flow">
-      <div class="drift-step">AWS resource changes</div>
-      <span class="drift-arrow">→</span>
-      <div class="drift-step">Drift detector runs</div>
-      <span class="drift-arrow">→</span>
-      <div class="drift-step">SNS alert fired</div>
-      <span class="drift-arrow">→</span>
-      <div class="drift-step">drift_report.json saved</div>
-      <span class="drift-arrow">→</span>
-      <div class="drift-step">Remediation shown</div>
-    </div>
-  </div>
-</section>
-
 <section class="section" id="install">
   <p class="section-tag">Install</p>
   <h2>Three ways to use it</h2>
@@ -264,13 +328,13 @@ footer a{color:var(--green)}
       <div class="install-icon">🔷</div>
       <div class="install-title">Terraform module</div>
       <div class="install-sub">Use in your existing Terraform project</div>
-      <div class="install-code">source = "KADHIRAVANEG/cloudcompliance/aws"<br>version = "1.2.0"</div>
+      <div class="install-code">source = "KADHIRAVANEG/cloudcompliance/aws"<br>version = "1.3.0"</div>
     </div>
     <div class="install-card">
       <div class="install-icon">🐍</div>
       <div class="install-title">Python CLI</div>
-      <div class="install-sub">Run compliance reports and drift detection</div>
-      <div class="install-code">pip install cloudcompliance<br>cloudcompliance report<br>cloudcompliance drift</div>
+      <div class="install-sub">Full compliance toolkit in your terminal</div>
+      <div class="install-code">pip install cloudcompliance<br><br>cloudcompliance report<br>cloudcompliance drift<br>cloudcompliance history</div>
     </div>
     <div class="install-card">
       <div class="install-icon">🐳</div>
@@ -281,11 +345,41 @@ footer a{color:var(--green)}
   </div>
 </section>
 
+<section class="section">
+  <p class="section-tag">Quick start</p>
+  <h2>Deploy in 3 commands</h2>
+  <p class="section-sub">Requirements: Terraform, Docker</p>
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="dot dot-red"></div>
+      <div class="dot dot-yellow"></div>
+      <div class="dot dot-green"></div>
+      <span class="terminal-title">quick start</span>
+    </div>
+    <div class="terminal-body">
+      <div class="dim"># 1. Start LocalStack (free local AWS)</div>
+      <div><span class="p">$ </span><span class="c">docker run --rm -d -p 4566:4566 localstack/localstack:3.4.0</span></div>
+      <br>
+      <div class="dim"># 2. Deploy all 10 SOC2 controls</div>
+      <div><span class="p">$ </span><span class="c">make deploy</span></div>
+      <div class="g">Apply complete! Resources: 46 added, 0 changed, 0 destroyed.</div>
+      <br>
+      <div class="dim"># 3. Generate compliance evidence</div>
+      <div><span class="p">$ </span><span class="c">make report</span></div>
+      <div class="y">SOC2 Compliance Score: 100% (10/10 controls passing)</div>
+      <div class="dim">Evidence saved → compliance/compliance_report.json</div>
+      <div class="dim">Markdown report → compliance/compliance_report.md</div>
+      <div class="dim">Score saved to history: 100% (10/10 controls)</div>
+    </div>
+  </div>
+</section>
+
 <footer>
   Built by <a href="https://github.com/KADHIRAVANEG">Kadhiravan E.G.</a> · MIT License ·
   <a href="https://github.com/KADHIRAVANEG/cloudcompliance">GitHub</a> ·
   <a href="https://pypi.org/project/cloudcompliance/">PyPI</a> ·
-  <a href="https://registry.terraform.io/modules/KADHIRAVANEG/cloudcompliance/aws">Terraform Registry</a>
+  <a href="https://registry.terraform.io/modules/KADHIRAVANEG/cloudcompliance/aws">Terraform Registry</a> ·
+  <a href="https://hub.docker.com/r/kadhiravaneg/cloudcompliance">Docker</a>
 </footer>
 
 </body>
